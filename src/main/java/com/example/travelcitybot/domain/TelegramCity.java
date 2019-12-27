@@ -12,7 +12,7 @@ public class TelegramCity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private long id;
     @Column(name = "telegramCity", unique = true, nullable = false)
     private String telegramCity;
     @Column(name = "descriptionCity", unique = true, nullable = false)
@@ -30,11 +30,11 @@ public class TelegramCity implements Serializable {
         this.telegramCity = telegramCity;
     }
 
-    public Integer getId (){
+    public long getId (){
         return id;
     }
 
-    public void setId ( Integer id ){
+    public void setId ( long id ){
         this.id = id;
     }
 
@@ -61,14 +61,14 @@ public class TelegramCity implements Serializable {
 
         TelegramCity that = (TelegramCity) o;
 
-        if (!id.equals (that.id)) return false;
+        if (id != that.id) return false;
         if (!telegramCity.equals (that.telegramCity)) return false;
         return descriptionCity.equals (that.descriptionCity);
     }
 
     @Override
     public int hashCode (){
-        int result = id.hashCode ( );
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result+telegramCity.hashCode ( );
         result = 31 * result+descriptionCity.hashCode ( );
         return result;

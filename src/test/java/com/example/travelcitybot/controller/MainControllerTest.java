@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.nio.charset.Charset;
 
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -37,8 +36,8 @@ public class MainControllerTest {
     public void createTelegramCity () throws Exception{
         String url = "/api/cities";
         TelegramCity telegramCity = new TelegramCity ( );
-        telegramCity.setTelegramCity ("Минск");
-        telegramCity.setDescriptionCity ("ok");
+        telegramCity.setTelegramCity ("Гродно");
+        telegramCity.setDescriptionCity ("Очень красивый город!");
 
         ObjectMapper mapper = new ObjectMapper ( );
         mapper.configure (SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -52,10 +51,34 @@ public class MainControllerTest {
 
 
     @Test
-    public void updateTelegramCity (){
+    public void updateTelegramCity ()throws Exception{
+        String url = "/api/cities/3";
+        TelegramCity telegramCity = new TelegramCity ( );
+        telegramCity.setTelegramCity ("Baku");
+        telegramCity.setDescriptionCity ("Замечательный город!");
+
+        ObjectMapper mapper = new ObjectMapper ( );
+        mapper.configure (SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer ( ).withDefaultPrettyPrinter ( );
+        String requestJson = ow.writeValueAsString (telegramCity);
+
+        mockMvc.perform (MockMvcRequestBuilders.put (url).contentType (APPLICATION_JSON_UTF8)
+                                 .content (requestJson))
+                .andExpect (status ( ).isNoContent ());
+
     }
 
     @Test
-    public void deleteTelegramCity (){
+    public void deleteTelegramCity () throws Exception{
+        String url = "/api/cities/6";
+        TelegramCity telegramCity = new TelegramCity ( );
+        ObjectMapper mapper = new ObjectMapper ( );
+        mapper.configure (SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer ( ).withDefaultPrettyPrinter ( );
+        String requestJson = ow.writeValueAsString (telegramCity);
+
+        mockMvc.perform (MockMvcRequestBuilders.delete (url).contentType (APPLICATION_JSON_UTF8)
+                                 .content (requestJson))
+                .andExpect (status ( ).isCreated ( ));
     }
 }
