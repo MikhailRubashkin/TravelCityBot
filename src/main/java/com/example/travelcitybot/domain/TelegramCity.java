@@ -10,6 +10,8 @@ import java.io.Serializable;
 @Entity
 public class TelegramCity implements Serializable {
 
+    private static final long serialVersionUID = 1234567895757575L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -24,8 +26,8 @@ public class TelegramCity implements Serializable {
         this.descriptionCity = descriptionCity;
     }
 
-    public TelegramCity ( String city ){
-        this.telegramCity = city;
+    public TelegramCity ( String telegramCity ){
+        this.telegramCity = telegramCity;
     }
 
     public Integer getId (){

@@ -17,7 +17,7 @@ public class TelegramCityService {
     }
 
     @Transactional
-    public List<TelegramCity> findByCity ( String telegramCity ){
+    public List<TelegramCity> findByTelegramCity ( String telegramCity ){
         return cityRepo.findByTelegramCity (telegramCity);
     }
 
