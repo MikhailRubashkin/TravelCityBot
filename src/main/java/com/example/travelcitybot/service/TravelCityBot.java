@@ -3,7 +3,6 @@ package com.example.travelcitybot.service;
 import com.example.travelcitybot.domain.TelegramCity;
 import com.google.common.base.Functions;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -18,8 +17,12 @@ import java.util.List;
 @Component
 public class TravelCityBot extends TelegramLongPollingBot {
 
-    @Autowired
-    private TelegramCityService telegramCityService;
+    private final TelegramCityService telegramCityService;
+
+
+    public TravelCityBot ( TelegramCityService telegramCityService ){
+        this.telegramCityService = telegramCityService;
+    }
 
     @Override
     public void onUpdateReceived ( Update update ){
@@ -35,8 +38,6 @@ public class TravelCityBot extends TelegramLongPollingBot {
             } else {
                 sendTextMessage (message, "Извените у нас нет такого города в Базе!");
             }
-        } else {
-            sendTextMessage (message, "Извените у нас нет такого города в Базе!");
         }
     }
 
@@ -56,11 +57,11 @@ public class TravelCityBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername (){
-        return "";
+        return "Travel_City_Bot";
     }
 
     @Override
     public String getBotToken (){
-        return "";
+        return "980163273:AAEOzFgrciPb6V6Nvja3Np1n3aG6Uw1yj-U";
     }
 }

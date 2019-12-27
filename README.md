@@ -1,1 +1,1 @@
-telegram_bot
+TravelCityBot

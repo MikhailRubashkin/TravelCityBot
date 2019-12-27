@@ -1,13 +1,11 @@
 package com.example.travelcitybot.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table (name = "TelegramCity")
 public class TelegramCity implements Serializable {
 
     private static final long serialVersionUID = 1234567895757575L;
@@ -15,7 +13,9 @@ public class TelegramCity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Column(name = "telegramCity", unique = true, nullable = false)
     private String telegramCity;
+    @Column(name = "descriptionCity", unique = true, nullable = false)
     private String descriptionCity;
 
     public TelegramCity (){
