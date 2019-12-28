@@ -33,8 +33,14 @@ public class TravelCityBot extends TelegramLongPollingBot {
             cars = telegramCityService.findByTelegramCity (message.getText ( ));
             if (cars != null && !cars.isEmpty ( )) {
                 String[] array = cars.stream ( ).map (Functions.toStringFunction ( )).toArray (String[]::new);
-                String result = array[0].substring(32, array[0].length()-1);
-                sendTextMessage (message,  result);
+                String result = array[0].replaceAll("descriptionCity=", "");
+                String result1 = result.replaceAll("telegramCity=", "");
+                String result2 = result1.replaceAll("id=", "");
+                String result3 = result2.replaceAll("TelegramCity", "");
+                String result4 = result3.replaceAll("'", "");
+                String result5 = result4.replaceAll("}", "");
+                String result6 = result5.substring(3, result5.length()-1);
+                sendTextMessage (message,  result6);
             } else {
                 sendTextMessage (message, "Извените у нас нет такого города в Базе!");
             }
