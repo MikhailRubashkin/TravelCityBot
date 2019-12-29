@@ -19,7 +19,6 @@ public class TravelCityBot extends TelegramLongPollingBot {
 
     private final TelegramCityService telegramCityService;
 
-
     public TravelCityBot ( TelegramCityService telegramCityService ){
         this.telegramCityService = telegramCityService;
     }
@@ -29,18 +28,20 @@ public class TravelCityBot extends TelegramLongPollingBot {
 
         Message message = update.getMessage ( );
         List<TelegramCity> cars;
-        if (message != null && message.hasText ( )) {
+        if (message.getText ( ).equals ("/Start")) {
+            sendTextMessage (message, "Здравствуйте! Введите пожалуйста город: ");
+        } else if (message.hasText ( )) {
             cars = telegramCityService.findByTelegramCity (message.getText ( ));
             if (cars != null && !cars.isEmpty ( )) {
                 String[] array = cars.stream ( ).map (Functions.toStringFunction ( )).toArray (String[]::new);
-                String result = array[0].replaceAll("descriptionCity=", "");
-                String result1 = result.replaceAll("telegramCity=", "");
-                String result2 = result1.replaceAll("id=", "");
-                String result3 = result2.replaceAll("TelegramCity", "");
-                String result4 = result3.replaceAll("'", "");
-                String result5 = result4.replaceAll("}", "");
-                String result6 = result5.substring(3, result5.length()-1);
-                sendTextMessage (message,  result6);
+                String result = array[0].replaceAll ("descriptionCity=", "");
+                String result1 = result.replaceAll ("telegramCity=", "");
+                String result2 = result1.replaceAll ("id=", "");
+                String result3 = result2.replaceAll ("TelegramCity", "");
+                String result4 = result3.replaceAll ("'", "");
+                String result5 = result4.replaceAll ("}", "");
+                String result6 = result5.substring (3, result5.length ( )-1);
+                sendTextMessage (message, result6);
             } else {
                 sendTextMessage (message, "Извените у нас нет такого города в Базе!");
             }
@@ -59,7 +60,6 @@ public class TravelCityBot extends TelegramLongPollingBot {
             e.printStackTrace ( );
         }
     }
-
 
     @Override
     public String getBotUsername (){

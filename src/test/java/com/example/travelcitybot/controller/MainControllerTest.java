@@ -36,8 +36,8 @@ public class MainControllerTest {
     public void createTelegramCity () throws Exception{
         String url = "/api/cities";
         TelegramCity telegramCity = new TelegramCity ( );
-        telegramCity.setTelegramCity ("Гродно");
-        telegramCity.setDescriptionCity ("Очень красивый город!");
+        telegramCity.setTelegramCity ("Витебск");
+        telegramCity.setDescriptionCity ("тоже очень красивый город!");
 
         ObjectMapper mapper = new ObjectMapper ( );
         mapper.configure (SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -46,16 +46,16 @@ public class MainControllerTest {
 
         mockMvc.perform (MockMvcRequestBuilders.post (url).contentType (APPLICATION_JSON_UTF8)
                                  .content (requestJson))
-                .andExpect (status ( ).isCreated ( ));
+                .andExpect (status ( ).isNoContent ( ));
     }
 
 
     @Test
     public void updateTelegramCity ()throws Exception{
-        String url = "/api/cities/3";
+        String url = "/api/cities/4";
         TelegramCity telegramCity = new TelegramCity ( );
-        telegramCity.setTelegramCity ("Baku");
-        telegramCity.setDescriptionCity ("Замечательный город!");
+        telegramCity.setTelegramCity ("Минск");
+        telegramCity.setDescriptionCity ("виликолепный город!");
 
         ObjectMapper mapper = new ObjectMapper ( );
         mapper.configure (SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -70,7 +70,7 @@ public class MainControllerTest {
 
     @Test
     public void deleteTelegramCity () throws Exception{
-        String url = "/api/cities/6";
+        String url = "/api/cities/7";
         TelegramCity telegramCity = new TelegramCity ( );
         ObjectMapper mapper = new ObjectMapper ( );
         mapper.configure (SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -79,6 +79,6 @@ public class MainControllerTest {
 
         mockMvc.perform (MockMvcRequestBuilders.delete (url).contentType (APPLICATION_JSON_UTF8)
                                  .content (requestJson))
-                .andExpect (status ( ).isCreated ( ));
+                .andExpect (status ( ).isNoContent ());
     }
 }
