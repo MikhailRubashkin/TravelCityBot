@@ -70,15 +70,26 @@ public class MainControllerTest {
 
     @Test
     public void deleteTelegramCity () throws Exception{
-        String url = "/api/cities/7";
-        TelegramCity telegramCity = new TelegramCity ( );
-        ObjectMapper mapper = new ObjectMapper ( );
-        mapper.configure (SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer ( ).withDefaultPrettyPrinter ( );
-        String requestJson = ow.writeValueAsString (telegramCity);
-
-        mockMvc.perform (MockMvcRequestBuilders.delete (url).contentType (APPLICATION_JSON_UTF8)
-                                 .content (requestJson))
+        String url = "/api/cities/5";
+        mockMvc.perform (MockMvcRequestBuilders.delete (url).contentType (APPLICATION_JSON_UTF8))
                 .andExpect (status ( ).isNoContent ());
     }
+
+    @Test
+    public void findAll () throws Exception{
+        String url = "/api/cities";
+        mockMvc.perform (MockMvcRequestBuilders.get (url).contentType (APPLICATION_JSON_UTF8))
+                .andExpect (status ( ).isOk ());
+    }
+
+    @Test
+    public void findById () throws Exception{
+        String url = "/api/cities/3";
+        mockMvc.perform (MockMvcRequestBuilders.get (url).contentType (APPLICATION_JSON_UTF8))
+                .andExpect (status ( ).isOk ());
+
+    }
+
+
+
 }

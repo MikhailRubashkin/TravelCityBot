@@ -34,13 +34,13 @@ public class TravelCityBot extends TelegramLongPollingBot {
     public void onUpdateReceived ( Update update ){
 
         Message message = update.getMessage ( );
-        List<TelegramCity> cars;
+        List<TelegramCity> cities;
         if (message.getText ( ).equals ("/Start")) {
             sendTextMessage (message, "Здравствуйте! Введите пожалуйста город: ");
         } else if (message.hasText ( )) {
-            cars = telegramCityService.findByTelegramCity (message.getText ( ));
-            if (cars != null && !cars.isEmpty ( )) {
-                String[] array = cars.stream ( ).map (Functions.toStringFunction ( )).toArray (String[]::new);
+            cities = telegramCityService.findByTelegramCity (message.getText ( ));
+            if (cities != null && !cities.isEmpty ( )) {
+                String[] array = cities.stream ( ).map (Functions.toStringFunction ( )).toArray (String[]::new);
                 String result = array[0].replaceAll ("descriptionCity=", "");
                 String result1 = result.replaceAll ("telegramCity=", "");
                 String result2 = result1.replaceAll ("id=", "");
@@ -50,7 +50,7 @@ public class TravelCityBot extends TelegramLongPollingBot {
                 String result6 = result5.substring (3, result5.length ( )-1);
                 sendTextMessage (message, result6);
             } else {
-                sendTextMessage (message, "Извените у нас нет такого города в Базе!");
+                sendTextMessage (message, "Извените у нас нет такого города в базе данных!");
             }
         }
     }
