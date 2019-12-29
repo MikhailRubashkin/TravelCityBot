@@ -2,7 +2,8 @@ package com.example.travelcitybot.service;
 
 import com.example.travelcitybot.domain.TelegramCity;
 import com.google.common.base.Functions;
-import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,10 +13,16 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.List;
 
-
-@Log4j2
 @Component
+@PropertySource("classpath:telegram.properties")
 public class TravelCityBot extends TelegramLongPollingBot {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory
+            .getLogger (TravelCityBot.class);
+
+    @Value("${bot.name}")
+    private String botName;
+    @Value("${bot.token}")
+    private String botToken;
 
     private final TelegramCityService telegramCityService;
 
@@ -57,17 +64,17 @@ public class TravelCityBot extends TelegramLongPollingBot {
         try {
             execute (sendMessage);
         } catch (TelegramApiException e) {
-            e.printStackTrace ( );
+            log.error ("SendMessage error", e);
         }
     }
 
     @Override
     public String getBotUsername (){
-        return "Travel_City_Bot";
+        return botName;
     }
 
     @Override
     public String getBotToken (){
-        return "980163273:AAEOzFgrciPb6V6Nvja3Np1n3aG6Uw1yj-U";
+        return botToken;
     }
 }

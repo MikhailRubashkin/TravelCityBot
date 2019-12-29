@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TelegramCityService {
@@ -19,6 +20,16 @@ public class TelegramCityService {
     @Transactional
     public List<TelegramCity> findByTelegramCity ( String telegramCity ){
         return cityRepo.findByTelegramCity (telegramCity);
+    }
+
+    @Transactional
+    public List<TelegramCity> findAllTelegramCity (){
+        return (List<TelegramCity>) cityRepo.findAll ( );
+    }
+
+    @Transactional
+    public Optional<TelegramCity> findById ( long id ){
+        return cityRepo.findById (id);
     }
 
     @Transactional

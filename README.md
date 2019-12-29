@@ -9,6 +9,7 @@ Web application for managing your own tourist telegram bot.
 Build a project using Maven.
 
 The application is launched from
-application folders by entering the spring-boot: run command in the console.
+application folders by entering the mvnw spring-boot: run command in the console.
+Access localhost:8080.
 
 

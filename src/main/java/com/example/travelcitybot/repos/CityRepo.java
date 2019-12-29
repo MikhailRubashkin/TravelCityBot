@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface CityRepo  extends CrudRepository<TelegramCity, Long> {
+public interface CityRepo extends CrudRepository<TelegramCity, Long> {
 
-    List<TelegramCity> findByTelegramCity( String telegramCity);
+    List<TelegramCity> findByTelegramCity ( String telegramCity );
 }

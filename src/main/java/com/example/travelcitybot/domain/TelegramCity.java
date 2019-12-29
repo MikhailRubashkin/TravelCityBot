@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table (name = "TelegramCity")
+@Table(name = "TelegramCity")
 public class TelegramCity implements Serializable {
 
     private static final long serialVersionUID = 1234567895757575L;

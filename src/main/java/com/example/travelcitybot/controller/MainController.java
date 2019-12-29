@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -21,6 +23,23 @@ public class MainController {
 
     public MainController ( TelegramCityService telegramCityService ){
         this.telegramCityService = telegramCityService;
+    }
+
+    @RequestMapping(path = "/api/cities", method = RequestMethod.GET, consumes = "application/json;charset=UTF-8", produces = "application/json")
+    public ResponseEntity<List<TelegramCity>> findAll (){
+        List<TelegramCity> telegramCities = telegramCityService.findAllTelegramCity ( );
+        return ResponseEntity.ok (telegramCities);
+    }
+
+    @RequestMapping(path = "/api/cities/{id}", method = RequestMethod.GET, consumes = "application/json;charset=UTF-8", produces = "application/json")
+    public ResponseEntity<Optional<TelegramCity>> findById ( @PathVariable long id ){
+        try {
+            Optional<TelegramCity> telegramCity = telegramCityService.findById (id);
+            return ResponseEntity.ok (telegramCity);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status (HttpStatus.NOT_FOUND).body (null);
+
+        }
     }
 
     @RequestMapping(path = "/api/cities", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json")
